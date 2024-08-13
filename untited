@@ -1,0 +1,787 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: SearchScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: Column(
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              const Row(
+                children: [
+                  Icon(Icons.arrow_back),
+                  SizedBox(
+                    width: 120,
+                  ),
+                  Text("Search", style: TextStyle(fontSize: 20)),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                height: 56,
+                width: 350,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(30)),
+                child: TabBar(
+                  unselectedLabelColor: Colors.black38,
+                  padding: const EdgeInsets.all(8),
+                  dividerColor: Colors.white,
+                  labelColor: Colors.black,
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  tabs: const [
+                    Text("Search"),
+                    Text("Saved"),
+                    Text("Demand"),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Stage"),
+                            Stage(),
+                            const Text("Diamond Shape"),
+                            DiamondShapeGrid(),
+                            Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(color: Colors.grey)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Carat Range",
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                      Center(
+                                        child: IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.add,
+                                              color: Colors.grey,
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "From",
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                )),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                    child: TextField(
+                                  decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
+                                    hintText: "To",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                ))
+                              ],
+                            ),
+                            Text(
+                              "Color",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Color(),
+                            Text("Clarity",
+                                style: TextStyle(color: Colors.grey)),
+                            Clarity(),
+                            Text("Finish",
+                                style: TextStyle(color: Colors.grey)),
+                            Finish(),
+                            Text("Cut", style: TextStyle(color: Colors.grey)),
+                            Cut(),
+                            Text(
+                              "Symmetry",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Symmetry(),
+                            Text(
+                              "Lab",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Lab(),
+                            Text("Location",
+                                style: TextStyle(color: Colors.grey)),
+                            Location(),
+                            Text("Certificate No./Lot No.",
+                                style: TextStyle(color: Colors.grey)),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  hintText: "Certificate No./Lot No.",
+                                  hintStyle: TextStyle(color: Colors.grey)),
+                            ),
+                            Text(
+                              "Shades",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Shades(),
+                            Text("H&A", style: TextStyle(color: Colors.grey)),
+                            HandA(),
+                            Text(
+                              "Price",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Price(),
+                            StaticList()
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Text("data"),
+                    const Text("data"),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Stage extends StatelessWidget {
+  Stage({super.key});
+
+  List stageList = ["All", "Available", "New", "Hold", "Price Revised", "Memo"];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: stageList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              "${stageList[index]}",
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DiamondShapeGrid extends StatelessWidget {
+  final List<Map<String, String>> diamondShapes = [
+    {"shape": "Asscher", "image": "asset/images/asscher.png"},
+    {"shape": "Cushion", "image": "asset/images/cushion.png"},
+    {"shape": "Emerald", "image": "asset/images/Emerald.png"},
+    {"shape": "Heart", "image": "asset/images/heart.png"},
+    {"shape": "Marquise", "image": "asset/images/marquise.png"},
+    {"shape": "Oval", "image": "asset/images/oval.png"},
+    {"shape": "Pear", "image": "asset/images/pear.png"},
+    {"shape": "Princess", "image": "asset/images/princess.png"},
+    {"shape": "Radiant", "image": "asset/images/Radiant.png"},
+    {"shape": "Round", "image": "asset/images/round.png"},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 170,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              // childAspectRatio: 1.1,
+              // crossAxisSpacing: 5,
+              // mainAxisSpacing: ,
+              mainAxisExtent: 80),
+          itemCount: diamondShapes.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      diamondShapes[index]["image"]!,
+                      height: 30,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  diamondShapes[index]["shape"]!,
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class Color extends StatelessWidget {
+  Color({super.key});
+
+  List colorList = [
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O-P",
+    "Q",
+    "Fancy",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: colorList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              colorList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Clarity extends StatelessWidget {
+  Clarity({super.key});
+
+  List clarityList = [
+    "FL",
+    "IF",
+    "VVS1",
+    "VVS2",
+    "VS1",
+    "VS2",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: clarityList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              clarityList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Finish extends StatelessWidget {
+  Finish({super.key});
+
+  List FinishList = [
+    "3EX",
+    "EX",
+    "VG+",
+    "VG-",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: FinishList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 75,
+            // padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              FinishList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Cut extends StatelessWidget {
+  Cut({super.key});
+
+  List CutList = [
+    "IDEAL",
+    "EX",
+    "VG",
+    "GD",
+    "GD",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: CutList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 68,
+            // padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              CutList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Symmetry extends StatelessWidget {
+  Symmetry({super.key});
+
+  List SymmetryList = [
+    "EX",
+    "VG",
+    "GD",
+    "FR",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: SymmetryList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 75,
+            // padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              SymmetryList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Lab extends StatelessWidget {
+  Lab({super.key});
+
+  List LabList = [
+    "GIA",
+    "IGI",
+    "NO-CERT",
+    "Other",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: LabList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 75,
+            // padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              LabList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Location extends StatelessWidget {
+  Location({super.key});
+
+  List LocationList = [
+    "Surat",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: LocationList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 75,
+            // padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              LocationList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Shades extends StatelessWidget {
+  Shades({super.key});
+
+  List ShadesList = [
+    "NO BGM",
+    "Brown",
+    "BLACK",
+    "MIX TINCH",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: ShadesList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 90,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              ShadesList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HandA extends StatelessWidget {
+  HandA({super.key});
+
+  List HandAList = [
+    "EX",
+    "VG",
+    "GD",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: HandAList.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(5),
+          child: Container(
+            width: 90,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+                child: Text(
+              HandAList[index],
+              style: const TextStyle(color: Colors.grey),
+            )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Price extends StatelessWidget {
+  Price({super.key});
+
+  List PriceList = [
+    "\$/CTS",
+    "DISC%",
+    "\$ TOTAL",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 120,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 50,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: PriceList.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  width: 90,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Center(
+                      child: Text(
+                    PriceList[index],
+                    style: const TextStyle(color: Colors.grey),
+                  )),
+                ),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                  hintText: "From",
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              )),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: "To",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StaticList extends StatelessWidget {
+  const StaticList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Table%"),
+        Row(
+          children: [
+            Expanded(
+                child: TextField(
+              decoration: InputDecoration(
+                hintText: "From",
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            )),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                child: TextField(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                hintText: "To",
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            ))
+          ],
+        ),
+        Text("Depth%"),
+        Row(
+          children: [
+            Expanded(
+                child: TextField(
+              decoration: InputDecoration(
+                hintText: "From",
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            )),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                child: TextField(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                hintText: "To",
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            ))
+          ],
+        ),
+      ],
+    );
+  }
+}
